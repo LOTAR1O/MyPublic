@@ -24,23 +24,23 @@ while [ $attempts -lt $max_attempts ]; do
 
     # Проверка на соответствие введенного пароля.
     if [ "$user_password" = "pass123" ]; then
-      echo"" "Вход выполнен."
-      user_password="" # Очистка переменной
+      printf "Вход выполнен.\n"
+      unset user_password # Очистка переменной
       exit 0 # Вход выполнен успешно
     else
-      attempts=$((attempts += 1))
+      attempts=$((attempts++))
       remaining=$((max_attempts - attempts))
       if [ $remaining -gt 0 ]; then
         echo "Введен неправильный пароль. Осталось попыток: $remaining"
       else
         echo "Превышено число попыток. Доступ запрещен."
-        user_password="" # Очистка переменной
+        unset user_password # Очистка переменной
         exit 1 # Ошибка
       fi
     fi
 done
 
-# ver. 3.0
-# Добавления обработки прерывания (CTRL+C).
-# Проверка на пустой пароль.
-# Добавляется очистка переменной после завершения выполнения скрипта.
+# ver. 3.1
+# Улучшена очистка переменных.
+# Оптимизировано увеличение счётчика.
+# Улучшен вывод сообщений.
